@@ -65,6 +65,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TrackingStateVisibilityThreshold: 1
   m_HideSubsumed: 1
+  m_ShowHorizontalPlanes: 1
+  m_ShowVerticlePlanes: 0
 --- !u!64 &1969369217499964473
 MeshCollider:
   m_ObjectHideFlags: 0

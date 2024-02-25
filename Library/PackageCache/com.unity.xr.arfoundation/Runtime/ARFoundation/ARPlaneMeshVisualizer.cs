@@ -84,6 +84,14 @@ namespace UnityEngine.XR.ARFoundation
             }
         }
 
+        [SerializeField]
+        [Tooltip("When disabled, a plane that is horizontal will not be rendered.")]
+        bool m_ShowHorizontalPlanes = true;
+
+        [SerializeField]
+        [Tooltip("When disabled, a plane that is verticle will not be rendered.")]
+        bool m_ShowVerticlePlanes = true;
+
         void OnBoundaryChanged(ARPlaneBoundaryChangedEventArgs eventArgs)
         {
             var boundary = m_Plane.boundary;
@@ -136,12 +144,31 @@ namespace UnityEngine.XR.ARFoundation
             SetRendererEnabled<LineRenderer>(visible);
         }
 
+        bool ShowPlanes()
+        {
+            bool result = true;
+
+            if(!m_ShowVerticlePlanes)
+            {
+                result = result && (m_Plane.alignment != PlaneAlignment.Vertical);
+            }
+
+            if(!m_ShowHorizontalPlanes)
+            {
+                result = result && (m_Plane.alignment != PlaneAlignment.HorizontalUp || m_Plane.alignment != PlaneAlignment.HorizontalDown);
+            }
+
+            return result;
+        }
+
         void UpdateVisibility()
         {
             var visible = enabled &&
                 m_Plane.trackingState >= m_TrackingStateVisibilityThreshold &&
                 ARSession.state > ARSessionState.Ready &&
                 (!m_HideSubsumed || m_Plane.subsumedBy == null);
+
+            visible = visible && ShowPlanes();
 
             SetVisible(visible);
         }
@@ -167,6 +194,11 @@ namespace UnityEngine.XR.ARFoundation
 
         void Update()
         {
+            //if(m_Plane.alignment == PlaneAlignment.Vertical)
+            //{
+            //    return;
+            //}
+
             if (transform.hasChanged)
             {
                 var lineRenderer = GetComponent<LineRenderer>();
