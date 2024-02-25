@@ -1,0 +1,45 @@
+{
+  "name": "com.unity.xr.arfoundation",
+  "displayName": "AR Foundation",
+  "version": "6.0.0-pre.5",
+  "unity": "2023.2",
+  "description": "AR Foundation enables you to create multi-platform augmented reality (AR) apps with Unity. To learn more about AR Foundation, click the Documentation link above.",
+  "keywords": [
+    "xreditorsubsystem",
+    "xr",
+    "ar",
+    "augmented",
+    "mixed",
+    "reality",
+    "foundation",
+    "core",
+    "subsystem",
+    "simulation",
+    "visualscripting"
+  ],
+  "dependencies": {
+    "com.unity.editorcoroutines": "1.0.0",
+    "com.unity.inputsystem": "1.6.3",
+    "com.unity.xr.core-utils": "2.2.2",
+    "com.unity.xr.management": "4.4.0",
+    "com.unity.ugui": "2.0.0",
+    "com.unity.mathematics": "1.2.6",
+    "com.unity.modules.particlesystem": "1.0.0",
+    "com.unity.modules.ui": "1.0.0",
+    "com.unity.modules.unityanalytics": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0"
+  },
+  "_upm": {
+    "changelog": "### Added\n\n- Added new API to make it possible for XR Simulation to identify images even if **Keep Texture at Runtime** is disabled in the reference image library:\n  - Added [SimulatedTrackedImage.imageAssetGuid](xref:UnityEngine.XR.Simulation.SimulatedTrackedImage.imageAssetGuid)\n- Added an editor window in **Assets** > **AR Foundation** > **Build AssetBundles** that you can use to build AssetBundles containing [XRReferenceImageLibrary](xref:UnityEngine.XR.ARSubsystems.XRReferenceImageLibrary) objects.\n- Added new versions of these Visual Scripting nodes, based on the new `ARTrackableManager.trackablesChanged` event:\n  - `OnAnchorsChanged`\n  - `OnEnvironmentProbesChanged`\n  - `OnFacesChanged`\n  - `OnHumanBodiesChanged`\n  - `OnParticipantsChanged`\n  - `OnPlanesChanged`\n  - `OnPointCloudsChanged`\n  - `OnTrackedImagesChanged`\n  - `OnTrackedObjectsChanged`\n- Added new API [ARPlaneMeshGenerator.TryGenerateMesh](xref:UnityEngine.XR.ARFoundation.ARPlaneMeshGenerator.TryGenerateMesh) to support generating meshes of simple polygons, i.e. concave and convex polygons.\n- Added documentation:\n  - Added [Display matrix format and derivation](xref:arfoundation-display-matrix-format-and-derivation) manual page.\n  - Added [Custom background shaders](xref:arfoundation-custom-background-shaders) manual page.\n- Added [SimulatedTrackedImage](xref:arfoundation-simulation-environments#simulated-tracked-image-component) as a public class. This class has been present since AR Foundation 5.0, but previously was not public.\n- Added settings in the XR Simulation Preferences window for configuring navigation `InputAction`s and navigation speed.\n\n### Changed\n\n- Changed the [Use reference image libraries with AssetBundles](xref:arfoundation-image-tracking#use-reference-image-libraries-with-assetbundles) section of the Image tracking documentation to mention that `ARBuildProcessor.PreprocessBuild` must be called before building AssetBundles.\n- Changed the location of the **Refresh XR Environment List** menu item from **Assets** to **Assets** > **AR Foundation**.\n- Changed the materials \"Debug Face\" and \"Debug Plane\" to be compatible with URP by changing them to the 'Simulation/StandardLit' shader instead of the unity standard shader.\n- Changed the XR Simulation Environments version imported by the XR Environment Overlay from 1.0.0 to 2.0.1.\n- Changed the [Plane detection](xref:arfoundation-plane-detection) documentation to contain more information and better organization.\n- Changed the `SimulatedLight` component to disallow multiple copies of the component on the same GameObject, which would result in incorrect light estimation.\n- Changed XR Simulation navigation controls to be bound to configurable `InputAction`s instead of hard-coded to WASD keys.\n\n### Deprecated\n\n- [ARPlaneMeshGenerators](xref:UnityEngine.XR.ARFoundation.ARPlaneMeshGenerators)\n  - [ARPlaneMeshGenerators.GenerateMesh](xref:UnityEngine.XR.ARFoundation.ARPlaneMeshGenerators.GenerateMesh)\n  - [ARPlaneMeshGenerators.GenerateUvs](xref:UnityEngine.XR.ARFoundation.ARPlaneMeshGenerators.GenerateUvs)\n  - [ARPlaneMeshGenerators.GenerateIndices](xref:UnityEngine.XR.ARFoundation.ARPlaneMeshGenerators.GenerateIndices)\n\n### Removed\n\n- Removed semantic labels from [PlaneClassifications](xref:UnityEngine.XR.ARSubsystems.PlaneClassifications) that describe 3D volumes.\n- Removed the \"Version History\" documentation section, which contained upgrade guides for previous versions of AR Foundation. To access upgrade guides for previous AR Foundation versions, refer to the respective documentation versions.\n- Removed **Enable Navigation** setting from XR Simulation Preferences window. Navigation controls can now be disabled by clearing the **Navigation Input Action References** settings in the same window.\n\n### Fixed\n\n- Fixed an issue in XR Simulation where a warning was logged stating that saving had no effect because of a missing FilePathAttribute.\n- Fixed an issue in XR Simulation where if the AR Occlusion Manager component was disabled at the start of a scene, occlusion would not work correctly if you later enabled the component.\n- Fixed an issue where the [ARTrackableManager.trackablesChanged](xref:UnityEngine.XR.ARFoundation.ARTrackableManager.trackablesChanged) event was initialized to `null`.\n- Fixed an issue where `SimulatedAnchor` components could incorrectly affect XR Simulation when used in scenes other than the XR simulation environment."
+  },
+  "upmCi": {
+    "footprint": "1de483abf82ba48e6e1abd80957c1df4632a3b6d"
+  },
+  "documentationUrl": "https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@6.0/manual/index.html",
+  "repository": {
+    "url": "https://github.cds.internal.unity3d.com/unity/arfoundation.git",
+    "type": "git",
+    "revision": "86d3fbedbd67dd223c765aff48040868534367f4"
+  },
+  "_fingerprint": "5374c57b2983d2ab4ff33e1b4f86bef3e091c9da"
+}
