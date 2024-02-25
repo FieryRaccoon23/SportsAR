@@ -1,0 +1,11 @@
+# ninja log v5
+53	203	7305157905027234	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	c4631f27503ff896
+205	369	7305157906628691	D:/Unity/SportsAR/SportsAR/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5z3k5b6j/obj/arm64-v8a/libswappywrapper.so	cff7511ae9018256
+13	802	7305157910972629	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	dbfb230e1b5bcb77
+20	811	7305157911092737	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	a7c65fb6ae2d660a
+28	853	7305157911523130	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	3a26cdbbaa677f80
+44	923	7305157912203747	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	f36397815aee4397
+8	951	7305157912443963	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	c3967b3a734b8714
+36	1111	7305157914095463	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	329d9b9504707460
+1	1177	7305157914756067	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	15324bbc0f09a66
+1177	1302	7305157915992223	D:/Unity/SportsAR/SportsAR/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5z3k5b6j/obj/arm64-v8a/libgame.so	afe9c28c7f868432
