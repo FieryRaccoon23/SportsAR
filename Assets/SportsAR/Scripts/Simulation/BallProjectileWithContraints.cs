@@ -7,9 +7,32 @@ public class BallProjectileWithContraints : MonoBehaviour
 {
     private List<Constraints> m_Contraints;
 
+    private void OnEnable()
+    {
+        DisableRigidBody();
+    }
+
     private void Start()
     {
         GetConstraints();
+
+        // There should be at least 1 constraint
+        Assert.AreNotEqual(m_Contraints.Count, 0, "Constraints are zero.");
+
+    }
+
+    private void Update()
+    {
+    }
+
+    void DisableRigidBody()
+    {
+        Rigidbody Body = GetComponent<Rigidbody>();
+        if (Body)
+        {
+            Body.isKinematic = true;
+            Body.detectCollisions = false;
+        }
     }
 
     private void GetConstraints()
@@ -33,13 +56,5 @@ public class BallProjectileWithContraints : MonoBehaviour
         // Sort
         m_Contraints.Sort((a, b) => a.CompareTo(b));
 #endif
-
-        // There should be at least 1 constraint
-        Assert.AreNotEqual(m_Contraints.Count, 0, "Constraints are zero.");
-    }
-
-    private void Update()
-    {
-        
     }
 }

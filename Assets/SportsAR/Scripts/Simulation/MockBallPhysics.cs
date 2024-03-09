@@ -5,10 +5,10 @@ public class MockBallPhysics : MonoBehaviour
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
     /// Ball Physics Members
     [SerializeField]
-    Vector3 m_InitialSpeed;
+    Vector3 m_CurrentSpeed;
 
     [SerializeField]
-    Vector3 m_InitialAcceleration;
+    Vector3 m_CurrentAcceleration;
     /// Ball Physics Members
 
     private BallPhysics m_BallPhysics;
@@ -21,8 +21,8 @@ public class MockBallPhysics : MonoBehaviour
     private void Awake()
     {
         /// Init Constraint members
-        m_BallPhysics.m_InitialSpeed = m_InitialSpeed;
-        m_BallPhysics.m_InitialAcceleration = m_InitialAcceleration;
+        m_BallPhysics.m_CurrentSpeed = m_CurrentSpeed;
+        m_BallPhysics.m_CurrentAcceleration = m_CurrentAcceleration;
         /// Init Constraint members
     }
 
