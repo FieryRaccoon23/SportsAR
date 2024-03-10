@@ -8,6 +8,7 @@ public class MockConstraints : MonoBehaviour
     [SerializeField]
     private Transform m_Transforms;
 
+    [Range(1, 100)]
     [SerializeField]
     private uint m_Order;
     /// Constraint Members
@@ -24,6 +25,7 @@ public class MockConstraints : MonoBehaviour
         m_Transforms = transform;
 
         /// Init Constraint members
+        m_Contraint = new Constraints();
         m_Contraint.m_Transforms = m_Transforms;
         m_Contraint.m_Order = m_Order;
         /// Init Constraint members

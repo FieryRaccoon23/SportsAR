@@ -2,10 +2,11 @@ using System;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public struct Constraints
+public class Constraints
 {
     public Transform m_Transforms;
     public uint m_Order;
+    public Vector3 m_LaunchDirection;
 
     public int CompareTo(Constraints Obj)
     {

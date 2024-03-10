@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1763812467528804474}
   - component: {fileID: 5397633440196292210}
-  - component: {fileID: 4455635695735397}
   - component: {fileID: 2501126876600295618}
+  - component: {fileID: 5145974825725043067}
+  - component: {fileID: 6731102392099227577}
   m_Layer: 0
   m_Name: CricketBall
   m_TagString: Untagged
@@ -47,20 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da8f5992a62b77468e43226edabbb37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4455635695735397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2566499877813233516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92800b31320d1954baea2722921f6cd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CurrentSpeed: {x: 0, y: 0, z: 0}
-  m_CurrentAcceleration: {x: 0, y: 0, z: 0}
+  m_MockBallSpeed: 44.44
+  m_MockSpeedScaling: 0.05
 --- !u!54 &2501126876600295618
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -88,6 +77,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5145974825725043067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566499877813233516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92800b31320d1954baea2722921f6cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6731102392099227577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566499877813233516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88dfbf34c99ea4f46bd4455953e90ad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6632417063640584622
 GameObject:
   m_ObjectHideFlags: 0
