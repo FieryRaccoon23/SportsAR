@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class PhysicsManager : Singleton<PhysicsManager>
 {
+    static float GRAVITIONAL_ACCELERATION = 9.80665f;
+    static float HALF_GRAVITIONAL_ACCELERATION = 4.903325f;
+
     [SerializeField]
     private float m_Epsilon1 = 0.001f;
     public float Epsilon1
@@ -20,16 +23,16 @@ public class PhysicsManager : Singleton<PhysicsManager>
     }
 
     [SerializeField]
-    private float m_GravitionalAcceleration = 9.80665f;
-    public float GravitionalAcceleration
+    private Vector3 m_GravitionalAcceleration = new Vector3(0.0f, GRAVITIONAL_ACCELERATION, 0.0f);
+    public Vector3 GravitionalAcceleration
     {
         get { return m_GravitionalAcceleration; }
         private set { m_GravitionalAcceleration = value; }
     }
 
     [SerializeField]
-    private float m_HalfGravitionalAcceleration = 4.903325f;
-    public float HalfGravitionalAcceleration
+    private Vector3 m_HalfGravitionalAcceleration = new Vector3(0.0f, HALF_GRAVITIONAL_ACCELERATION, 0.0f);
+    public Vector3 HalfGravitionalAcceleration
     {
         get { return m_HalfGravitionalAcceleration; }
         private set { m_HalfGravitionalAcceleration = value; }

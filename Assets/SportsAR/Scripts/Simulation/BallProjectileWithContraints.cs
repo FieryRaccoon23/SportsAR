@@ -119,9 +119,59 @@ public class BallProjectileWithContraints : MonoBehaviour
         return m_MockBallSpeed;
     }
 
+    private void InitVelocity(Constraints StartValue)
+    {
+        BallPhysicsComponent.InitialSpeed = StartValue.m_LaunchDirection * GetBallCurrentSpeed();
+        BallPhysicsComponent.CurrentSpeed = BallPhysicsComponent.InitialSpeed;
+    }
+
+    private void ApplyForces()
+    {
+        BallPhysicsComponent.CurrentAcceleration = Vector3.zero;
+
+        BallPhysicsComponent.CurrentAcceleration -= (PhysicsManager.Instance.GravitionalAcceleration * Time.fixedDeltaTime);
+    }
+
+    private void SimulateProjectileBetween2Constraints(Constraints StartValue, Constraints EndValue)
+    {
+        if (m_LastStartConstraintIndex != m_CurrentStartConstraintIndex)
+        {
+            m_LastStartConstraintIndex = m_CurrentStartConstraintIndex;
+            InitVelocity(StartValue);
+        }
+
+        ApplyForces();
+
+        // TODO: Check if fixed delta time needed
+        transform.position += BallPhysicsComponent.CurrentSpeed * Time.fixedDeltaTime * m_MockSpeedScaling;
+
+        // TODO: Use Verlet integration otherwise it can deviate
+
+        // u = s/t
+
+        Vector3 NewSpeed = BallPhysicsComponent.InitialSpeed + BallPhysicsComponent.CurrentAcceleration;
+
+        BallPhysicsComponent.CurrentSpeed.Set(NewSpeed.x, NewSpeed.y, NewSpeed.z);
+
+        //BallPhysicsComponent.CurrentSpeed.Set(BallPhysicsComponent.InitialSpeed.x,
+        //                                      BallPhysicsComponent.InitialSpeed.y - (9.81f * Time.fixedDeltaTime),
+        //                                      BallPhysicsComponent.InitialSpeed.z);
+
+        //BallPhysicsComponent.CurrentSpeed = new Vector3(BallPhysicsComponent.InitialSpeed.x, BallPhysicsComponent.InitialSpeed.y - (9.81f * Time.fixedDeltaTime) , BallPhysicsComponent.InitialSpeed.z);
+
+        //BallPhysicsComponent.CurrentSpeed = BallPhysicsComponent.InitialSpeed + BallPhysicsComponent.CurrentAcceleration;
+    }
+
+    private void PreUpdateSimulation()
+    {
+
+    }
+
     private void UpdateSimulation()
     {
-        if(m_SimulationState == SimulationState.Stopped)
+        PreUpdateSimulation();
+
+        if (m_SimulationState == SimulationState.Stopped)
         {
             return;
         }
@@ -137,6 +187,16 @@ public class BallProjectileWithContraints : MonoBehaviour
 
         SimulateProjectileBetween2Constraints(StartValue, EndValue);
 
+        PostUpdateSimulation();
+    }
+
+    private void PostUpdateSimulation()
+    {
+        Constraints StartValue = m_Constraints[m_CurrentStartConstraintIndex];
+        Constraints EndValue = m_Constraints[m_CurrentStartConstraintIndex + 1];
+
+        // TODO: RISKY
+        // Check if ground hit
         Vector3 Offset = transform.position - EndValue.m_Transforms.position;
         float SqrLen = Offset.sqrMagnitude;
         if (SqrLen <= PhysicsManager.Instance.Epsilon1)
@@ -144,26 +204,6 @@ public class BallProjectileWithContraints : MonoBehaviour
             transform.position = EndValue.m_Transforms.position;
             m_CurrentStartConstraintIndex += 1;
         }
-    }
-
-    private void SimulateProjectileBetween2Constraints(Constraints StartValue, Constraints EndValue)
-    {
-        if (m_LastStartConstraintIndex != m_CurrentStartConstraintIndex)
-        {
-            m_LastStartConstraintIndex = m_CurrentStartConstraintIndex;
-            BallPhysicsComponent.InitialSpeed = StartValue.m_LaunchDirection * GetBallCurrentSpeed();
-            BallPhysicsComponent.CurrentSpeed = BallPhysicsComponent.InitialSpeed;
-        }
-
-        // TODO: Check if fixed delta time needed
-        transform.position += BallPhysicsComponent.CurrentSpeed * Time.fixedDeltaTime * m_MockSpeedScaling;
-
-        // TODO: Use Verlet integration otherwise it can deviate
-
-        // u = s/t
-        BallPhysicsComponent.CurrentSpeed.Set(BallPhysicsComponent.InitialSpeed.x,
-                                              BallPhysicsComponent.InitialSpeed.y - (PhysicsManager.Instance.GravitionalAcceleration * Time.fixedDeltaTime),
-                                              BallPhysicsComponent.InitialSpeed.z);
     }
 
     private void EndSimulation()

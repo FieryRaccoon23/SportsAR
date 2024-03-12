@@ -8,6 +8,8 @@ public class Constraints
     public uint m_Order;
     public Vector3 m_LaunchDirection;
 
+    // List of Forces to apply
+
     public int CompareTo(Constraints Obj)
     {
         var A = this;

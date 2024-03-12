@@ -4,6 +4,13 @@ using UnityEngine.UIElements;
 
 public class BallPhysics : MonoBehaviour
 {
+    private float m_Mass;
+    public float Mass
+    {
+        get { return m_Mass; }
+        set { m_Mass = value; }
+    }
+
     private Vector3 m_InitialSpeed;
     public Vector3 InitialSpeed
     {

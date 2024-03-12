@@ -2797,8 +2797,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Epsilon1: 0.001
   m_COROfBall: 0.75
-  m_GravitionalAcceleration: 9.81
-  m_HalfGravitionalAcceleration: 4.903325
+  m_GravitionalAcceleration: {x: 0, y: 9.80665, z: 0}
+  m_HalfGravitionalAcceleration: {x: 0, y: 4.903325, z: 0}
 --- !u!4 &1972817366
 Transform:
   m_ObjectHideFlags: 0

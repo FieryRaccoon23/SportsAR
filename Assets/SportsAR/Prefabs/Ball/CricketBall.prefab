@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MockBallSpeed: 44.44
-  m_MockSpeedScaling: 0.05
+  m_MockSpeedScaling: 0.1
 --- !u!54 &2501126876600295618
 Rigidbody:
   m_ObjectHideFlags: 0
