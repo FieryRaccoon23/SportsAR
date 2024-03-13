@@ -12,6 +12,9 @@ public class PlaceOnPlane : MonoBehaviour
     [SerializeField]
     private GameObject m_Stadium;
 
+    [SerializeField]
+    private float m_SpawnObjectUniformScale = 1.0f;
+
     UnityEvent m_PlacementUpdate;
 
     ARRaycastManager m_RaycastManager;
@@ -88,6 +91,8 @@ public class PlaceOnPlane : MonoBehaviour
                 m_SpawnedObject.transform.position = hitPose.position;
             }
             //placementUpdate.Invoke();
+            m_SpawnedObject.transform.localScale = new Vector3(m_SpawnObjectUniformScale, m_SpawnObjectUniformScale, m_SpawnObjectUniformScale);
+            CricketManager.Instance.StartSimulation = true;
         }
     }
 }

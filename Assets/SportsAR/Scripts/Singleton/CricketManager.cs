@@ -3,8 +3,15 @@ using UnityEngine.UIElements;
 
 public class CricketManager : Singleton<CricketManager>
 {
-    // Distance in meters
+    [SerializeField]
+    private bool m_StartSimulation = false;
+    public bool StartSimulation
+    {
+        get { return m_StartSimulation; }
+        set { m_StartSimulation = value; }
+    }
 
+    // Distance in meters
     [SerializeField]
     private float m_PitchLengthFromCrease = 17.68f;
     public float PitchLengthFromCrease

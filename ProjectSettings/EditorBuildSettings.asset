@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/SportsAR/Scenes/CricketAR.unity
+    guid: 4b409376beeb0034b897477f9f10c6b1
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 2d42f5c89fafd024e934c6afa3667958, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 6f5349257197baf4e91bb71a6d941f4f, type: 2}

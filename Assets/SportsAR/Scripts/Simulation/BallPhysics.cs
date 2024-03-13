@@ -11,11 +11,11 @@ public class BallPhysics : MonoBehaviour
         set { m_Mass = value; }
     }
 
-    private Vector3 m_InitialSpeed;
-    public Vector3 InitialSpeed
+    private Vector3 m_InitialVelocity;
+    public Vector3 InitialVelocity
     {
-        get { return m_InitialSpeed; }
-        set { m_InitialSpeed = value; }
+        get { return m_InitialVelocity; }
+        set { m_InitialVelocity = value; }
     }
 
     private Vector3 m_CurrentSpeed;

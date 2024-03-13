@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using static NUnit.Framework.Constraints.ConstraintBuilder;
 
 enum SimulationState
 { 
@@ -12,7 +11,7 @@ enum SimulationState
     Rewind
 };
 
-public class BallProjectileWithContraints : MonoBehaviour
+public class BallProjectileWithContraints : Singleton<BallProjectileWithContraints>
 {
     private List<Constraints> m_Constraints;
     private Rigidbody BallRigidBodyComponent;
@@ -22,9 +21,6 @@ public class BallProjectileWithContraints : MonoBehaviour
     private SimulationState m_SimulationState = SimulationState.Stopped;
 
     [SerializeField]
-    float m_MockBallSpeed = 44.44f;
-
-    [SerializeField]
     float m_MockSpeedScaling = 0.5f;
 
     private void OnEnable()
@@ -32,6 +28,18 @@ public class BallProjectileWithContraints : MonoBehaviour
         DisableRigidBody();
 
         BallPhysicsComponent = GetComponent<BallPhysics>();
+
+        //GetConstraints();
+
+        //// There should be at least 2 constraint
+        //Assert.AreNotEqual(m_Constraints.Count, 1, "Constraints are zero.");
+
+        //for (int i = 0; i < m_Constraints.Count - 1; ++i)
+        //{
+        //    Constraints ConstraintStart = m_Constraints[i];
+        //    Constraints ConstraintEnd = m_Constraints[i + 1];
+        //    CalculateStartLaunchDirection(ref ConstraintStart, ConstraintEnd);
+        //}
     }
 
     private void Start()
@@ -41,21 +49,27 @@ public class BallProjectileWithContraints : MonoBehaviour
         // There should be at least 2 constraint
         Assert.AreNotEqual(m_Constraints.Count, 1, "Constraints are zero.");
 
-        float BallTotalTravelTime = GetBallTotalTravelTime(m_MockBallSpeed);
-        float AvegTravelTimePerConstraint = BallTotalTravelTime / (float)(m_Constraints.Count);
-
         for (int i = 0; i < m_Constraints.Count - 1; ++i)
         {
             Constraints ConstraintStart = m_Constraints[i];
-            Constraints ConstraintEnd = m_Constraints[i+1];
-            CalculateStartLaunchDirection(ref ConstraintStart, ConstraintEnd, AvegTravelTimePerConstraint);
+            Constraints ConstraintEnd = m_Constraints[i + 1];
+            CalculateStartLaunchDirection(ref ConstraintStart, ConstraintEnd);
         }
 
-        BeginSimulation();
+        m_SimulationState = SimulationState.Stopped;
+        //BeginSimulation();
     }
 
     private void FixedUpdate()
     {
+        if(CricketManager.Instance != null) 
+        {
+            if(CricketManager.Instance.StartSimulation && m_SimulationState == SimulationState.Stopped)
+            {
+                BeginSimulation();
+            }
+        }
+
         UpdateSimulation();
     }
 
@@ -96,18 +110,7 @@ public class BallProjectileWithContraints : MonoBehaviour
 #endif
     }
 
-    float GetBallTotalTravelTime(float BallSpeed)
-    {
-        if (BallSpeed <= 0)
-        {
-            return 0.0f;
-        }
-
-        float AveragePitchLength = (CricketManager.Instance.PitchLengthFromCrease + CricketManager.Instance.PitchLengthFromStumps) / 2.0f;
-        return AveragePitchLength / BallSpeed;
-    }
-
-    private void CalculateStartLaunchDirection(ref Constraints StartValue, Constraints EndValue, float TravelTime)
+    private void CalculateStartLaunchDirection(ref Constraints StartValue, Constraints EndValue)
     {
         StartValue.m_LaunchDirection = (EndValue.m_Transforms.position - StartValue.m_Transforms.position);
         // TODO: Maybe keep it squared
@@ -116,13 +119,17 @@ public class BallProjectileWithContraints : MonoBehaviour
 
     private float GetBallCurrentSpeed() 
     {
-        return m_MockBallSpeed;
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+        return CricketMockSettings.Instance.BallInitSpeed;
+#else
+        return 0.0f;
+#endif
     }
 
     private void InitVelocity(Constraints StartValue)
     {
-        BallPhysicsComponent.InitialSpeed = StartValue.m_LaunchDirection * GetBallCurrentSpeed();
-        BallPhysicsComponent.CurrentSpeed = BallPhysicsComponent.InitialSpeed;
+        BallPhysicsComponent.InitialVelocity = StartValue.m_LaunchDirection * GetBallCurrentSpeed();
+        BallPhysicsComponent.CurrentSpeed = BallPhysicsComponent.InitialVelocity;
     }
 
     private void ApplyForces()
@@ -149,7 +156,7 @@ public class BallProjectileWithContraints : MonoBehaviour
 
         // u = s/t
 
-        Vector3 NewSpeed = BallPhysicsComponent.InitialSpeed + BallPhysicsComponent.CurrentAcceleration;
+        Vector3 NewSpeed = BallPhysicsComponent.InitialVelocity + BallPhysicsComponent.CurrentAcceleration;
 
         BallPhysicsComponent.CurrentSpeed.Set(NewSpeed.x, NewSpeed.y, NewSpeed.z);
 
@@ -208,7 +215,7 @@ public class BallProjectileWithContraints : MonoBehaviour
 
     private void EndSimulation()
     {
-        m_SimulationState = SimulationState.Stopped;
+        m_SimulationState = SimulationState.Paused;
     }
 
     //////////////////PUBLIC//////////////////
